@@ -1,34 +1,43 @@
-# Ui-design
-
 @page "/dashboard"
 
-<h3>BCP1PROCESSING</h3>
-<div class="dashboard-container">
-    <div class="gauge-container">
+<div class="header">
+    <h1>BCP1PROCESSING</h1>
+    <p>Start: 2024-11-20 00:00:01 | End: 2024-11-21 00:00:00</p>
+</div>
+
+<div class="dashboard">
+    <!-- Gauges Section -->
+    <div class="gauges">
         <div class="gauge">
             <h4>Downtime</h4>
-            <span class="gauge-value" style="color: red;">7.1</span>
+            <div class="speed-meter" data-value="7.1" data-min="0" data-max="15" style="--value: 7.1; --min: 0; --max: 15;"></div>
+            <p class="gauge-value">7.1</p>
         </div>
         <div class="gauge">
             <h4>Tput v. Sched</h4>
-            <span class="gauge-value" style="color: green;">96.1</span>
+            <div class="speed-meter" data-value="96.1" data-min="0" data-max="100" style="--value: 96.1; --min: 0; --max: 100;"></div>
+            <p class="gauge-value">96.1</p>
         </div>
         <div class="gauge">
             <h4>Waste</h4>
-            <span class="gauge-value" style="color: green;">0.0</span>
+            <div class="speed-meter" data-value="0" data-min="0" data-max="10" style="--value: 0; --min: 0; --max: 10;"></div>
+            <p class="gauge-value">0.0</p>
         </div>
         <div class="gauge">
             <h4>Labor</h4>
-            <span class="gauge-value" style="color: green;">770.9</span>
+            <div class="speed-meter" data-value="770.9" data-min="0" data-max="1000" style="--value: 770.9; --min: 0; --max: 1000;"></div>
+            <p class="gauge-value">770.9</p>
         </div>
         <div class="gauge">
             <h4>OEE</h4>
-            <span class="gauge-value" style="color: green;">92.9</span>
+            <div class="speed-meter" data-value="92.9" data-min="0" data-max="100" style="--value: 92.9; --min: 0; --max: 100;"></div>
+            <p class="gauge-value">92.9</p>
         </div>
     </div>
 
+    <!-- Downtime Table -->
     <div class="table-container">
-        <h4>Downtime Events</h4>
+        <h3>Downtime Events</h3>
         <table>
             <thead>
                 <tr>
@@ -59,49 +68,84 @@
         </table>
     </div>
 
-    <div class="charts-container">
-        <h4>Run Right Indicators</h4>
+    <!-- Run Right Indicators -->
+    <div class="charts">
+        <h3>Run Right Indicators</h3>
         <div class="chart">
-            <h5>Oven Dwell Time</h5>
+            <h4>Oven Dwell Time</h4>
             <p>Avg: 6.65</p>
-            <!-- Add your chart here -->
         </div>
         <div class="chart">
-            <h5>Oven Temp</h5>
+            <h4>Oven Temp</h4>
             <p>Avg: 0</p>
-            <!-- Add your chart here -->
         </div>
         <div class="chart">
-            <h5>LAB-MOISTURE FRYER 1</h5>
+            <h4>LAB-MOISTURE FRYER 1</h4>
             <p>Avg: 1.2162</p>
-            <!-- Add your chart here -->
         </div>
     </div>
 </div>
 
 <style>
-    .dashboard-container {
-        display: grid;
-        grid-template-rows: auto auto auto;
-        gap: 1rem;
+    /* Header Styling */
+    .header {
+        text-align: center;
+        background-color: #f4f4f4;
+        padding: 1rem;
+        border-bottom: 2px solid #ccc;
     }
 
-    .gauge-container {
+    .header h1 {
+        margin: 0;
+    }
+
+    .dashboard {
+        padding: 1rem;
+    }
+
+    /* Gauges Section */
+    .gauges {
         display: flex;
         justify-content: space-around;
+        margin-bottom: 2rem;
     }
 
     .gauge {
         text-align: center;
     }
 
-    .gauge-value {
-        font-size: 1.5rem;
+    .speed-meter {
+        width: 100px;
+        height: 100px;
+        background: conic-gradient(
+            red calc(var(--value) / var(--max) * 360deg),
+            #e0e0e0 0
+        );
+        border-radius: 50%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .speed-meter::after {
+        content: attr(data-value);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
         font-weight: bold;
     }
 
+    .gauge-value {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+    }
+
+    /* Table Styling */
     .table-container {
         overflow-x: auto;
+        margin-bottom: 2rem;
     }
 
     table {
@@ -111,16 +155,25 @@
 
     th, td {
         padding: 0.5rem;
-        border: 1px solid #ddd;
         text-align: left;
+        border: 1px solid #ccc;
     }
 
-    .charts-container {
-        display: flex;
-        flex-direction: column;
+    th {
+        background-color: #f4f4f4;
+    }
+
+    /* Charts Section */
+    .charts {
+        display: grid;
+        gap: 1rem;
     }
 
     .chart {
-        margin-bottom: 1rem;
+        padding: 1rem;
+        background: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        text-align: center;
     }
 </style>
